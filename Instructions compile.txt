@@ -1,0 +1,30 @@
+sudo apt install ninja-build
+sudo apt install qt6-base-dev
+sudo apt install libqt6core5compat6-dev
+sudo apt install qt6-tools-dev
+
+git submodule init
+git submodule update
+cd dep/openssl/openssl
+./config -fPIC
+make
+cd ~/Documents/Marco/gitahead
+mkdir -p build/release
+cd build/release
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ../..
+ninja
+
+cd ~/Documents/Marco/gitahead/build/release/pack
+cmake -DCMAKE_INSTALL_PREFIX=/home/ue0100060x/Documents/Marco/gitahead/build/GitAhead -P cmake_install.cmake
+cd /home/ue0100060x/Documents/Marco/gitahead/build/release/src
+sudo cmake -DCMAKE_INSTALL_PREFIX=/home/ue0100060x/Documents/Marco/gitahead/build/GitAhead -P cmake_install.cmake
+
+#Estos comandos parece que ya se incluyen con el comando anterior
+cd ~/Documents/Marco/gitahead/build/release/src/app
+sudo cmake -DCMAKE_INSTALL_PREFIX=/home/ue0100060x/Documents/Marco/gitahead/build/GitAhead -P cmake_install.cmake
+
+sudo chown -R ue0100060x:ue0100060x /home/ue0100060x/Documents/Marco/gitahead/build/GitAhead
+
+cd /home/ue0100060x/Documents/Marco/gitahead/build
+tar -zcvf GitAhead-2.7.1.tar.gz -C GitAhead .
+cat GitAhead-2.7.1.tar.gz >> GitAhead-2.7.1.sh
