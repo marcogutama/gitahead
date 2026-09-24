@@ -152,6 +152,11 @@ public:
     QStyleOptionViewItem opt = option;
     initStyleOption(&opt, index);
 
+    // FIXME
+    QFont font = painter->font();
+    font.setPointSize(opt.font.pointSize());
+    painter->setFont(font);
+
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, painter, opt.widget);
 
